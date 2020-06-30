@@ -9,7 +9,6 @@ typedef struct Node{
 }Node;
 
 void create(Node * &p) {
-	Node *r;
 	char ch;
 	cin>>ch;
 	if(ch == ' ') {
