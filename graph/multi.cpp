@@ -3,11 +3,13 @@
 using namespace std;
 
 typedef struct Edge{
-	int v;
-	Edge *next;
+	int ivex;
+	int jvex;
+	Edge *ilink;
+	Edge *jlink;
 }Edge;
 
-typedef struct {
+typedef struct Vex{
 	char e;
 	Edge *first;
 }Vex;
@@ -36,9 +38,12 @@ void get_edge(G &g) {
 	cin>>b;
 	while(a && b) {
 		Edge *tmp = new Edge;
-		tmp->v = b-1;
-		tmp->next = g.vex.at(a-1).first;
+		tmp->ivex = a-1;
+		tmp->jvex = b-1;
+		tmp->ilink = g.vex.at(a-1).first;
+		tmp->jlink = g.vex.at(b-1).first;
 		g.vex.at(a-1).first = tmp;
+		g.vex.at(b-1).first = tmp;
 		
 		cin>>a;
 		cin>>ch;
@@ -51,11 +56,15 @@ void dfs(G &g, int m, vector<bool> &visited) {
 	visited.at(m) = true;
 
 	Edge *p = g.vex.at(m).first;
+	int cur;
 	while(p) {
-		if(!visited.at(p->v)) {
-			dfs(g, p->v, visited);
+		cur = p->jvex;
+		if(m==p->jvex) cur = p->ivex;
+		if(!visited.at(cur)) {
+			dfs(g, cur, visited);
 		}
-		p = p->next;
+		if(m==p->jvex) p = p->jlink;
+		else p = p->ilink;
 	}
 }
 
@@ -68,7 +77,6 @@ void DFS(G &g) {
 			dfs(g, i, visited);
 		}
 	}
-
 }
 
 int main() {

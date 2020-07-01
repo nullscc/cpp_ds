@@ -29,6 +29,7 @@ void get_edge(G &g) {
 	cin>>b;
 	while(a && b) {
 		g.edge.at(a-1).at(b-1) = true;
+		g.edge.at(b-1).at(a-1) = true;
 		cin>>a;
 		cin>>ch;
 		cin>>b;

@@ -3,13 +3,16 @@
 using namespace std;
 
 typedef struct Edge{
-	int v;
-	Edge *next;
+	int hvex;
+	int tvex;
+	Edge *hlink;
+	Edge *tlink;
 }Edge;
 
-typedef struct {
+typedef struct Vex{
 	char e;
-	Edge *first;
+	Edge *firstin;
+	Edge *firstout;
 }Vex;
 
 typedef struct {
@@ -22,7 +25,8 @@ void get_vex(G &g) {
 	for(auto ch: vs) {
 		Vex tmp;
 		tmp.e = ch;
-		tmp.first = NULL;
+		tmp.firstin = NULL;
+		tmp.firstout = NULL;
 		g.vex.push_back(tmp);
 	}
 }
@@ -36,9 +40,12 @@ void get_edge(G &g) {
 	cin>>b;
 	while(a && b) {
 		Edge *tmp = new Edge;
-		tmp->v = b-1;
-		tmp->next = g.vex.at(a-1).first;
-		g.vex.at(a-1).first = tmp;
+		tmp->hvex = b-1;
+		tmp->tvex = a-1;
+		tmp->hlink = g.vex.at(b-1).firstin;
+		tmp->tlink = g.vex.at(a-1).firstout;
+		g.vex.at(a-1).firstout = tmp;
+		g.vex.at(b-1).firstin = tmp;
 		
 		cin>>a;
 		cin>>ch;
@@ -50,12 +57,12 @@ void dfs(G &g, int m, vector<bool> &visited) {
 	cout<<g.vex.at(m).e<<" ";
 	visited.at(m) = true;
 
-	Edge *p = g.vex.at(m).first;
+	Edge *p = g.vex.at(m).firstout;
 	while(p) {
-		if(!visited.at(p->v)) {
-			dfs(g, p->v, visited);
+		if(!visited.at(p->hvex)) {
+			dfs(g, p->hvex, visited);
 		}
-		p = p->next;
+		p = p->tlink;
 	}
 }
 
