@@ -51,7 +51,11 @@ int kmp(const string &s, const string &p) {
 
 int main() {
 	string s, p;
-	cout<<kmp("aaabaaaab", "ba")<<endl;
+	// cout<<kmp("aaabaaaab", "ba")<<endl;
+	for(auto i: get_next("abcac")) {
+		cout<<i<<" ";
+	}
+	cout<<endl;
 
 	return 0;
 }
