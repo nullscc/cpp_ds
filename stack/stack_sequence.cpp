@@ -10,7 +10,7 @@ typedef struct {
     int len;
     int cap;
     TYPE s[MAX];
-}Stack, pStack;
+}Stack, *pStack;
 
 int Init(Stack &S) {
     S.top = 0;
