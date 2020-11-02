@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cassert>
 #include <queue>
-
+#include <stack>
 typedef char TYPE;
 
 typedef struct Node {
@@ -32,7 +32,7 @@ int Build(pNode &T) {
     return 0;
 }
 
-void MidSearch(pNode T, void (*visit)(pNode)) {
+void MidSearch(pNode T, void (*visit) (pNode)) {
     if(!T) return;
 
     MidSearch(T->l, visit);
@@ -41,7 +41,25 @@ void MidSearch(pNode T, void (*visit)(pNode)) {
 
 }
 
-void PreSearch(pNode T, void (*visit)(pNode)) {
+void MidSearch_NonRecursive(pNode T, void (*visit) (pNode)) {        //!IMPORTANT
+    if(!T) return;
+
+    std::stack<pNode> S;
+    pNode p = T;
+    while(p || !S.empty()) {
+        if(p) {
+            S.push(p);
+            p = p->l;
+        } else {
+            p = S.top();
+            S.pop();
+            visit(p);
+            p = p->r;
+        }
+    }
+}
+
+void PreSearch(pNode T, void (*visit) (pNode)) {
     if(!T) return;
 
     visit(T);
@@ -49,7 +67,25 @@ void PreSearch(pNode T, void (*visit)(pNode)) {
     PreSearch(T->r, visit);
 }
 
-void PostSearch(pNode T, void (*visit)(pNode)) {
+void PreSearch_NonRecursive(pNode T, void (*visit) (pNode)) {
+    if(!T) return;
+    
+    std::stack<pNode> S;
+    pNode p = T;
+    while(p || !S.empty()) {
+        if(p) {
+            visit(p);
+            S.push(p);
+            p = p->l;
+        } else {
+            p = S.top();
+            S.pop();
+            p = p->r;
+        }
+    }
+}
+
+void PostSearch(pNode T, void (*visit) (pNode)) {
     if(!T) return;
 
     PostSearch(T->l, visit);
@@ -57,7 +93,33 @@ void PostSearch(pNode T, void (*visit)(pNode)) {
     visit(T);
 }
 
-void LevelSearch(pNode T, void (*visit)(pNode)) {
+void PostSearch_NonRecursive(pNode T, void (*visit) (pNode)) {
+    if(!T) return;
+    
+    std::stack<pNode> S;
+    pNode p = T;
+    pNode most_r = NULL;        // 最右边的节点
+    while(p || !S.empty()) {
+        if(p) {
+            S.push(p);
+            p = p->l;
+        } else {
+            p = S.top();
+            if(p->r && most_r!=p->r) {
+                p = p->r;
+                S.push(p);
+                p = p->l;
+            } else {
+                S.pop();
+                visit(p);
+                most_r = p;
+                p = NULL;
+            }
+        }
+    }
+}
+
+void LevelSearch(pNode T, void (*visit) (pNode)) {
     if(!T) return;
 
     std::queue<pNode> q;
