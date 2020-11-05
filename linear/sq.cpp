@@ -1,7 +1,5 @@
 // 顺序表实现
 
-#include<iostream>
-
 #define MAX 100
 typedef int TYPE;
 

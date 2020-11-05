@@ -1,6 +1,5 @@
 // 静态链表实现
 
-#include<iostream>
 #include<cassert>
 
 #define MAX 1000

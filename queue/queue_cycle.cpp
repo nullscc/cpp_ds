@@ -1,7 +1,5 @@
 // 循环队列实现
 
-#include <iostream>
-
 #define MAX 11
 typedef int TYPE;
 

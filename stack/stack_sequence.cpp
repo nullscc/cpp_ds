@@ -1,7 +1,5 @@
 // 栈的顺序实现
 
-#include <iostream>
-
 #define MAX 10
 typedef int TYPE;
 
