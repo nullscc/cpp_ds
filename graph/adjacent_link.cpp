@@ -29,29 +29,40 @@ pG Build(char *vexes, int vnum, std::pair<int, int> *edges, int ednum) {
     }
 
     for(i=0; i<ednum; i++) {
-        if(!pg->vexes[edges[i].first-1].first) {
-            pEdge pedge = new Edge;
-            pedge->vex = edges[i].second-1;
-            pedge->next = NULL;
-            pg->vexes[edges[i].first-1].first = pedge;
-        } else {
+        // if(!pg->vexes[edges[i].first-1].first) {
+        //     pEdge pedge = new Edge;
+        //     pedge->vex = edges[i].second-1;
+        //     pedge->next = NULL;
+        //     pg->vexes[edges[i].first-1].first = pedge;
+        // } else {
+        //     pEdge pedge = new Edge;
+        //     pedge->vex = edges[i].second-1;
+        //     pedge->next = pg->vexes[edges[i].first-1].first;
+        //     pg->vexes[edges[i].first-1].first = pedge;
+        // }
+
+        // if(!pg->vexes[edges[i].second-1].first) {
+        //     pEdge pedge = new Edge;
+        //     pedge->vex = edges[i].first-1;
+        //     pedge->next = NULL;
+        //     pg->vexes[edges[i].second-1].first = pedge;
+        // } else {
+        //     pEdge pedge = new Edge;
+        //     pedge->vex = edges[i].first-1;
+        //     pedge->next = pg->vexes[edges[i].second-1].first;
+        //     pg->vexes[edges[i].second-1].first = pedge;
+        // }
             pEdge pedge = new Edge;
             pedge->vex = edges[i].second-1;
             pedge->next = pg->vexes[edges[i].first-1].first;
             pg->vexes[edges[i].first-1].first = pedge;
-        }
 
-        if(!pg->vexes[edges[i].second-1].first) {
-            pEdge pedge = new Edge;
-            pedge->vex = edges[i].first-1;
-            pedge->next = NULL;
-            pg->vexes[edges[i].second-1].first = pedge;
-        } else {
-            pEdge pedge = new Edge;
+            pedge = new Edge;
             pedge->vex = edges[i].first-1;
             pedge->next = pg->vexes[edges[i].second-1].first;
             pg->vexes[edges[i].second-1].first = pedge;
-        }
+
+        
     }
     return pg;
 }

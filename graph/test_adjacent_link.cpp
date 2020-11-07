@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "adjacent_table.cpp"
+#include "adjacent_link.cpp"
 
 using namespace std;
 
