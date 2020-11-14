@@ -34,11 +34,6 @@ pG Build(char *vexes, int vnum, std::pair<int, int> *edges, int ednum) {
             pedge->vex = edges[i].second-1;
             pedge->next = pg->vexes[edges[i].first-1].first;
             pg->vexes[edges[i].first-1].first = pedge;
-
-            // pedge = new Edge;
-            // pedge->vex = edges[i].first-1;
-            // pedge->next = pg->vexes[edges[i].second-1].first;
-            // pg->vexes[edges[i].second-1].first = pedge;
     }
     return pg;
 }
