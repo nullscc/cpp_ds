@@ -1,4 +1,4 @@
-// TODO: 优化
+// TODO: 优化 and 非递归的实现
 
 int partition(int *l, int low, int high) {
     int pivot_value;
