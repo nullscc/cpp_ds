@@ -63,26 +63,41 @@ void DFS(pG pg, void (*visit)(pG, int)) {
     }
 }
 
-void BFS(pG pg, void (*visit)(pG, int)) {
-    std::queue<int> q;
+void bfs(pG pg, void (*visit)(pG, int), int k, bool *visited, std::queue<int> &q) {
     int i;
-    bool *visited = new bool[pg->vnum];
-
-    q.push(0);
-    visited[0] = true;
+    q.push(k);
+    visited[k] = true;
+    visit(pg, k);
     int tmp;
     while(!q.empty()) {
         tmp = q.front();
         q.pop();
-        visit(pg, tmp);
         for(i=0; i<pg->vnum; i++) {
             if(pg->edges[tmp][i])
             if(!visited[i] && pg->edges[tmp][i]) {
                 visited[i] = true;
+                visit(pg, i);
                 q.push(i);
             }
         }
     }
+}
+
+void BFS(pG pg, void (*visit)(pG, int)) {
+    int i;
+    std::queue<int> q;
+    bool *visited = new bool[pg->vnum];
+    for(i=0; i<pg->vnum; i++) {
+        visited[i] = false;
+    }
+
+    for(i=0; i<pg->vnum; i++) {
+        if(!visited[i]) {
+            bfs(pg, visit, i, visited, q);
+        }
+    }
+
+    delete []visited;
 }
 
 void dfs_nonrecursive(pG pg, int i, bool *visited, void (*visit)(pG, int)) {
