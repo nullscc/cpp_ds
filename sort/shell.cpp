@@ -1,6 +1,6 @@
 
 void shell(int *l, int n) {
-    int i, j, tmp, inc, k;
+    int i, j, inc, k;
     int *ll = new int[n+1];
 
     for(i=0; i<n; i++) {
@@ -13,9 +13,7 @@ void shell(int *l, int n) {
 
             ll[0] = ll[i];
             for(j=i; ll[j-inc]>ll[0]; j-=inc) {
-                tmp = ll[j-inc];
-                ll[j-inc] = tmp;
-                ll[j] = tmp;
+                ll[j] = ll[j-inc];
             }
             ll[j] = ll[0];
         }
